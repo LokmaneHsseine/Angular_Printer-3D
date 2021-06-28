@@ -9,28 +9,31 @@ import {Produit} from "../model/produit.model";
   styleUrls: ['./edit-produit.component.css']
 })
 export class EditProduitComponent implements OnInit {
-  public currentProduit: Produit | any;
-  public data: Produit | any;
+  public currentProduit:  any;
+  
   private url: string | any;
 
 
-  constructor(private router:Router, private activeroute:ActivatedRoute, private produitService:ProduitService) { }
+  constructor(private router:Router, private activeroute:ActivatedRoute, private produitService:ProduitService) {
+   
+   }
 
 
   ngOnInit(): void {
-    this.url=atob(this.activeroute.snapshot.params.id);
-    this.produitService.getResource(this.url).subscribe(date=>{
-      this.currentProduit=this.data;
+   this.url=atob(this.activeroute.snapshot.params.id);
+    this.produitService.getResource(this.url).subscribe(data=>{
+      this.currentProduit=data;
     },error => {
       console.log(error);
     })
+    
   }
 
   onEditProduct(value: any) {
-    this.produitService.updateResource(this.url,value)
+    this.produitService.updateResource(value)
       .subscribe(data=>{
-      alert("Mise à jour effectuée avec succes")
-        this.router.navigateByUrl("/produit")
+      alert("Mise à jour effectuée avec succes");
+        this.router.navigateByUrl("/produit");
     },error=>{
       console.log(error);
     })
