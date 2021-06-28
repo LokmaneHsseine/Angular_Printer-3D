@@ -3,16 +3,18 @@
   <div class="card">
     <div class="row">
       <div class="col-md-6">
-        <img class="card-img-top" src="img_avatar1.png" alt="Card image" style="width:100%">
+        <img class="card-img-top" src="http://localhost:8080/imageProduit/{{currentProduit.id}}" alt="Card image" style="width:100%">
       </div>
 
 
       <div class="col-md-6">
         <div class="card-body">
-          <h3 class="card-title">Libelle</h3>
-          <h5 class="card-text">Prix : </h5>
-          <h5 class="card-text">Qte : </h5>
-          <p> Description</p>
+          <h3 class="card-title">Libelle : {{currentProduit.libelle}}</h3>
+          <h5 class="card-text">Prix : {{currentProduit.prix}} </h5>
+          <h5 class="card-text">Qte :  {{currentProduit.quantiteStk}}</h5>
+          <p> Description : <br/>
+            {{currentProduit.description}}
+          </p>
         </div>
 
 

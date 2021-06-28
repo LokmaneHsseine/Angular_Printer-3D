@@ -9,15 +9,14 @@ import {ProduitService} from "../services/produit.service";
   styleUrls: ['./show-produit.component.css']
 })
 export class ShowProduitComponent implements OnInit {
-  public currentProduit: Produit | any;
-  public data: Produit | any;
+  public currentProduit: any;
   private url: string | any;
   constructor(private router:Router, private activeroute:ActivatedRoute, private produitService:ProduitService) { }
 
   ngOnInit(): void {
     this.url=atob(this.activeroute.snapshot.params.id);
-    this.produitService.getResource(this.url).subscribe(date=>{
-      this.currentProduit=this.data;
+    this.produitService.getResource(this.url).subscribe(data=>{
+      this.currentProduit=data;
     },error => {
       console.log(error);
     })
