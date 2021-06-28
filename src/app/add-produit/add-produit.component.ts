@@ -17,7 +17,8 @@ export class AddProduitComponent implements OnInit {
   }
 
   onSaveProduct(data:any) {
-    this.produitService.saveResource(this.produitService.host+"/produits",data)
+    console.log(data);
+    this.produitService.saveResource(data)
       .subscribe(res=>{
         this.router.navigateByUrl("/produit")
       },err=>{
