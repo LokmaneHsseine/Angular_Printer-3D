@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Produit} from "../model/produit.model";
 
@@ -15,18 +15,25 @@ export class ProduitService {
   constructor(private http:HttpClient) { }
 
   public getProduits(page:number,size:number){
-    return this.http.get(this.host+"/produits?pages="+page+"&size="+size);
+    const headers=new HttpHeaders({Authorization:'Basic '+btoa("chagdani"+":"+"1234")});
+    return this.http.get(this.host+"/produitAll?page="+page+"&size="+size);
   }
 
-  public saveResource(url:any,data:any):Observable<Produit>{
-    return this.http.post<Produit>(url,data);
+  public saveResource(data:any):Observable<Produit>{
+    const headers=new HttpHeaders({Authorization:'Basic '+btoa("chagdani"+":"+"1234")});
+    return this.http.post<Produit>(this.host+"/produitSave",data);
   }
 
-  public getResource(url:any):Observable<Produit>{
-    return this.http.get<Produit>(url);
+  public getResource(url:any){
+    return this.http.get(url);
   }
 
-  public updateResource(url:any,data:any){
-    return this.http.put(url,data);
+
+  public updateResource(data:any){ 
+    return this.http.post(this.host+"/produitSave",data);
+  }
+  login(email:any,password:any){
+    const headers=new HttpHeaders({Authorization:'Basic '+btoa(email+":"+password)});
+    return this.http.get("http://localhost:8080/produitAll",{headers,responseType:'text' as 'json'});
   }
 }
