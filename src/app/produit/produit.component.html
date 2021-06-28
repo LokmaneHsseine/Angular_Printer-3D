@@ -20,11 +20,12 @@
         </tr>
         </thead>
         <tbody>
-      <tr *ngFor="let p of produits._embedded.produits" class="">
-        <td>{{p.id}}</td>
+     <!-- <tr *ngFor="let p of produits._embedded.produits" class="">-->
+      <tr *ngFor="let p of produits.content" class="">
+        <td> <img src="http://localhost:8080/imageProduit/{{p.id}}" width="100dp" height="50dp"/> </td>
         <td>{{p.libelle}}</td>
         <td>{{p.prix}}</td>
-        <td>{{p.quantite_stk}}</td>
+        <td>{{p.quantiteStk}}</td>
         <td><a class="btn btn-warning" (click)="onEditProduct(p)">Modifier</a>
             <a class="btn btn-info" (click)="onShowProduct(p)">Afficher</a>
         </td>

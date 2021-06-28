@@ -14,17 +14,21 @@ export class ProduitComponent implements OnInit {
   public produits:any;
   public size:number=10;
   public currentPage:number=0;
-  public totalPages: number | undefined;
+  public totalPages: number=0;
   public pages: Array<number> | undefined;
   private catService: any;
 
-  constructor(private produitService:ProduitService, private router:Router) { }
+  constructor(private produitService:ProduitService, private router:Router) {
+    
+   }
 
   ngOnInit(): void {
   this.produitService.getProduits(this.currentPage,this.size)
     .subscribe(data=>{
       // @ts-ignore
-      this.totalPages=data["page"].totalPages;
+      var tot=data.total;
+      this.totalPages=Math.ceil(tot/this.size);
+     
       if (this.totalPages != null) {
         this.pages = new Array<number>(this.totalPages);
       }
@@ -45,7 +49,9 @@ export class ProduitComponent implements OnInit {
   }
 
   onEditProduct(p:any) {
-    let url=p._links.self.href;
+    console.log(p.id);
+    //let url=p._links.self.href;
+    let url="http://localhost:8080/produits/"+p.id;
 
     this.router.navigateByUrl("/edit_produit/"+btoa(url));
   }
