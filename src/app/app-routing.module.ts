@@ -4,6 +4,8 @@ import {ProduitComponent} from "./produit/produit.component";
 import {AddProduitComponent} from "./add-produit/add-produit.component";
 import {EditProduitComponent} from "./edit-produit/edit-produit.component";
 import {ShowProduitComponent} from "./show-produit/show-produit.component";
+import { LoginComponent } from './login/login.component';
+import { RecupererComponent } from './recuperer/recuperer.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path:"show_produit/:id",
     component: ShowProduitComponent
+  },
+  {
+    path:"",
+    component: LoginComponent
+  },
+  {
+    path:"recuperer_produit",
+    component: RecupererComponent
   }
 ];
 
