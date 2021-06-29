@@ -14,9 +14,17 @@ export class ProduitService {
 
   constructor(private http:HttpClient) { }
 
-  public getProduits(page:number,size:number){
+  public getProduits(word:any,page:number,size:number,visible:any){
     const headers=new HttpHeaders({Authorization:'Basic '+btoa("chagdani"+":"+"1234")});
-    return this.http.get(this.host+"/produitAll?page="+page+"&size="+size);
+    return this.http.get(this.host+"/produitSearch?word="+word+"&page="+page+"&size="+size+"&visible="+visible);
+  }
+/*  public getProduits(url:any,page:number,size:number){
+    const headers=new HttpHeaders({Authorization:'Basic '+btoa("chagdani"+":"+"1234")});
+    return this.http.get(url+"?page="+page+"&size="+size);
+  }*/
+  public getProduit(page:number,size:number){
+    const headers=new HttpHeaders({Authorization:'Basic '+btoa("chagdani"+":"+"1234")});
+    return this.http.get(this.host+"/produitAllDelete?page="+page+"&size="+size);
   }
 
   public saveResource(data:any):Observable<Produit>{
@@ -27,7 +35,12 @@ export class ProduitService {
   public getResource(url:any){
     return this.http.get(url);
   }
-
+  public deleteProduit(url:any){
+    return this.http.get(url);
+  }
+  public recupereProduit(url:any){
+    return this.http.get(url);
+  }
 
   public updateResource(data:any){ 
     return this.http.post(this.host+"/produitSave",data);
