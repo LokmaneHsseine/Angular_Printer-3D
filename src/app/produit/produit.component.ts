@@ -17,13 +17,14 @@ export class ProduitComponent implements OnInit {
   public totalPages: number=0;
   public pages: Array<number> | undefined;
   private catService: any;
+  public word:any="";
 
   constructor(private produitService:ProduitService, private router:Router) {
     
    }
 
   ngOnInit(): void {
-  this.produitService.getProduits(this.currentPage,this.size)
+  this.produitService.getProduits(this.word,this.currentPage,this.size,1)
     .subscribe(data=>{
       // @ts-ignore
       var tot=data.total;
@@ -45,7 +46,22 @@ export class ProduitComponent implements OnInit {
   }
 
   onChercher(value: any) {
-    console.log(value);
+    console.log(value.keyword);
+    this.word=value.keyword;
+    this.produitService.getProduits(this.word,this.currentPage,this.size,1)
+    .subscribe(data=>{
+      // @ts-ignore
+      var tot=data.total;
+      this.totalPages=Math.ceil(tot/this.size);
+     console.log(this.totalPages);
+      if (this.totalPages != null) {
+        this.pages = new Array<number>(this.totalPages);
+      }
+      this.produits=data;
+    },err=>{
+      console.log(err);
+    })
+    
   }
 
   onEditProduct(p:any) {
@@ -57,7 +73,20 @@ export class ProduitComponent implements OnInit {
   }
 
   onShowProduct(p:any) {
-    let url=p._links.self.href;
+    //let url=p._links.self.href;
+    let url="http://localhost:8080/produits/"+p.id;
     this.router.navigateByUrl("/show_produit/"+btoa(url));
+  }
+  onDeleteProduct(p:any){
+    let url="http://localhost:8080/produitDelete/"+p.id;
+    this.produitService.deleteProduit(url)
+    .subscribe(data=>{
+      alert("Suppression effectuée avec succes");
+        //this.router.navigate(["/produit"]);
+        window.location.reload();
+    },error=>{
+      console.log(error);
+    })
+   
   }
 }
